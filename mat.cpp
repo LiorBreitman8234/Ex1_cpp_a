@@ -1,8 +1,8 @@
 //
 // Created by bravo8234 on 03/03/2022.
 //
-
 #include "mat.hpp"
+#include <vector>
 #include <iostream>
 namespace ariel {
     std::string mat(int length, int height, char symbol1, char symbol2) {
@@ -13,11 +13,8 @@ namespace ariel {
         {
             throw std::invalid_argument("Mat size is always positive");
         }
-        char** mat = new char*[height];
-        for(int i =0; i < height;i++)
-        {
-            mat[i] = new char[length];
-        }
+        std::vector<std::vector<char>> mat;
+        mat.resize(height, std::vector<char>(length));
         int keepHeight = height;
         int keepLength = length;
         int flag = 1;
@@ -49,11 +46,6 @@ namespace ariel {
             }
             toPrint.push_back('\n');
         }
-        for(int i =0; i < height;i++)
-        {
-            delete[] mat[i];
-        }
-        delete[] mat;
         return toPrint;
     }
 
