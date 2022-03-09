@@ -4,8 +4,14 @@
 #include "mat.hpp"
 #include <vector>
 #include <iostream>
+#include <algorithm>
 namespace ariel {
+    std::vector<char> illegal_Symbols{'\n','\t',' ','\r','\0'};
     std::string mat(int length, int height, char symbol1, char symbol2) {
+        if((std::find(illegal_Symbols.begin(),illegal_Symbols.end(),symbol1) != illegal_Symbols.end()) || (std::find(illegal_Symbols.begin(),illegal_Symbols.end(),symbol2) != illegal_Symbols.end()))
+        {
+            throw std::invalid_argument("Illegal symbol");
+        }
         if(length %2 == 0 || height %2 == 0){
             throw std::invalid_argument("Mat size is always odd");
         }

@@ -25,7 +25,6 @@ TEST_CASE("good input")
     CHECK(removeWhiteSpace(ariel::mat(3,1,'#','*')).compare("###") == 0);
     CHECK(removeWhiteSpace(mat(9, 7, '@', '-')).compare(removeWhiteSpace("@@@@@@@@@\n@-------@\n@-@@@@@-@\n@-@---@-@\n@-@@@@@-@\n@-------@\n@@@@@@@@@")) == 0);
     CHECK(removeWhiteSpace(ariel::mat(9,9,'#','_')).compare(removeWhiteSpace("#########\n#_______#\n#_#####_#\n#_#___#_#\n#_#_#_#_#\n#_#___#_#\n#_#####_#\n#_______#\n#########\n")) == 0);
-    CHECK(removeWhiteSpace(ariel::mat(3,3,'#',' ')).compare(removeWhiteSpace("########")) == 0);
     CHECK(removeWhiteSpace(ariel::mat(5,5,'#','$')).compare(removeWhiteSpace("######$$$##$#$##$$$######")) == 0);
     CHECK(removeWhiteSpace(ariel::mat(7,1,'#','$')).compare(removeWhiteSpace("#######")) == 0);
     CHECK(removeWhiteSpace(ariel::mat(9,3,'*','#')).compare(removeWhiteSpace("*********\n*#######*\n*********")) == 0);
@@ -47,4 +46,17 @@ TEST_CASE("bad input")
     CHECK_THROWS(ariel::mat(-1,-1,'#','*'));
     CHECK_THROWS_MESSAGE(ariel::mat(-1,-1,'#','*'),"Mat size is always positive");
     CHECK_THROWS_MESSAGE(ariel::mat(4,1,'_','+'),"Mat size is always odd");
+    CHECK_THROWS(ariel::mat(3,3,'\n','@'));
+    CHECK_THROWS(ariel::mat(3,3,'\t','@'));
+    CHECK_THROWS(ariel::mat(3,3,'\r','@'));
+    CHECK_THROWS(ariel::mat(3,3,'\0','@'));
+    CHECK_THROWS(ariel::mat(3,3,' ','@'));
+    CHECK_THROWS(ariel::mat(3,3,'#','\n'));
+    CHECK_THROWS(ariel::mat(3,3,'#',' '));
+    CHECK_THROWS(ariel::mat(3,3,'#','\t'));
+    CHECK_THROWS(ariel::mat(3,3,'#','\r'));
+    CHECK_THROWS(ariel::mat(3,3,'#','\0'));
+    CHECK_THROWS_MESSAGE(ariel::mat(5,5,'#','\t'), "Illegal symbol");
+
+
 }
